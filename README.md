@@ -14,3 +14,8 @@ Collects basic user info and prints a formatted audit report with an experience 
 ## Run
 ```bash
 python system_audit.py
+
+# Day 02 Update
+- Added timestamped audit logging
+- Saves results to a file
+- Introduced file handling and logging concepts
