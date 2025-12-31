@@ -1,14 +1,15 @@
 # system_audit.py
 
+from datetime import datetime
+
 print("=== System User Audit Tool ===")
 
 username = input("Enter username: ").strip()
 role = input("Enter role (IT / Dev / Student): ").strip()
 years_raw = input("Years of experience: ").strip()
 
-# Basic input validation (so it doesn't crash if user types something weird)
 if not years_raw.isdigit():
-    print("Error: Years of experience must be a whole number (e.g., 0, 1, 5).")
+    print("Error: Years must be a number.")
     raise SystemExit(1)
 
 years = int(years_raw)
@@ -22,9 +23,21 @@ elif years <= 7:
 else:
     level = "Senior"
 
+timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+report = (
+    f"{timestamp} | "
+    f"User: {username} | "
+    f"Role: {role} | "
+    f"Experience: {years} | "
+    f"Level: {level}\n"
+)
+
 print("\n--- AUDIT REPORT ---")
-print(f"User: {username}")
-print(f"Role: {role}")
-print(f"Experience: {years} years")
-print(f"Level: {level}")
-print("--------------------")
+print(report)
+
+# Save to file
+with open("audit_log.txt", "a") as file:
+    file.write(report)
+
+print("Audit saved to audit_log.txt")
